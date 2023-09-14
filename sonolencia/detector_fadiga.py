@@ -70,7 +70,7 @@ li, = ax.plot(x, y)
 # loop sobre os frames do vídeo
 while True:
     frame = vs.read()
-    frame = imutils.resize(frame, width=800)
+    frame = imutils.resize(frame, width=400)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # detectar faces (grayscale)
@@ -111,26 +111,26 @@ while True:
         fig.canvas.draw()
         time.sleep(0.01)
 
-        # checar ratio x threshold
-        if ear < EYE_AR_THRESH:
-            COUNTER += 1
+        # # checar ratio x threshold
+        # if ear < EYE_AR_THRESH:
+        #     COUNTER += 1
 
-            # dentro dos critérios, soar o alarme
-            if COUNTER >= EYE_AR_CONSEC_FRAMES:
-                # ligar alarme
-                if not ALARM_ON:
-                    ALARM_ON = True
-                    t = Thread(target=sound_alarm)
-                    t.deamon = True
-                    t.start()
+        #     # dentro dos critérios, soar o alarme
+        #     if COUNTER >= EYE_AR_CONSEC_FRAMES:
+        #         # ligar alarme
+        #         if not ALARM_ON:
+        #             ALARM_ON = True
+        #             t = Thread(target=sound_alarm)
+        #             t.deamon = True
+        #             t.start()
 
-                cv2.putText(frame, "[ALERTA] FADIGA!", (10, 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+        #         cv2.putText(frame, "[ALERTA] FADIGA!", (10, 30),
+        #                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-        # caso acima do threshold, resetar o contador e desligar o alarme
-        else:
-            COUNTER = 0
-            ALARM_ON = False
+        # # caso acima do threshold, resetar o contador e desligar o alarme
+        # else:
+        #     COUNTER = 0
+        #     ALARM_ON = False
 
             # desenhar a proporção de abertura dos olhos
         cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
